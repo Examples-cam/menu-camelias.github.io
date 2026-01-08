@@ -18,7 +18,7 @@ const menuItems = [
     descripcion: "Plato con porcion de arroz.",
     precio: 4000,
     categoria: "porciones", 
-    imagen: "https://drive.google.com/file/d/1zwbXbghwA9U7FVfNSZEWklVsmOSNSq8f/view?usp=drive_link",
+    imagen: "https://res.cloudinary.com/dvx8yz3sc/image/upload/w_700,q_auto,f_auto/v1767901503/arroz_owvvnm.jpg",
   },
   {
     nombre: "Aguacate",
