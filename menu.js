@@ -91,7 +91,7 @@ const menuItems = [
     imagen: "https://res.cloudinary.com/dvx8yz3sc/image/upload/w_700,q_auto,f_auto/v1767901524/patacon_psmuad.jpg",
   },
   {
-    nombre: "Seviche de chicarron",
+    nombre: "Seviche de chicharron",
     descripcion: "Crujiente chicharrón picado, marinado con limón, cebolla, tomate y toques frescos de la casa.",
     precio: 29000,
     categoria: "platos para picar",
