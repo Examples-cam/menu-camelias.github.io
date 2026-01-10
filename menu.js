@@ -95,7 +95,7 @@ const menuItems = [
     descripcion: "Crujiente chicharrón picado, marinado con limón, cebolla, tomate y toques frescos de la casa.",
     precio: 29000,
     categoria: "platos para picar",
-    imagen: "productos_imagenes/comidas/seviche.jpg",
+    imagen: "https://res.cloudinary.com/dvx8yz3sc/image/upload/w_auto,c_scale,q_auto,f_auto/v1768024938/sevichechicharron_z8s3x5.jpg",
   },
   {
     nombre: "Plato con costillas",
@@ -116,7 +116,7 @@ const menuItems = [
     descripcion: "Arepaburger artesanal servida con queso, papas a la francesa y acompañamientos.",
     precio: 29000,
     categoria: "platos para picar",
-    imagen: "productos_imagenes/comidas/arepaburger.jpg",
+    imagen: "https://res.cloudinary.com/dvx8yz3sc/image/upload/w_auto,c_scale,q_auto,f_auto/v1768025319/arepaburger_rxits4.jpg",
   },
   {
     nombre: "Plato con chorizos",
@@ -144,7 +144,7 @@ const menuItems = [
     descripcion: "Chorizo asado con papas a la francesa, salsas tradicionales.",
     precio: 23000,
     categoria: "platos para picar",
-    imagen: "productos_imagenes/comidas/choripapa.jpg",
+    imagen: "https://res.cloudinary.com/dvx8yz3sc/image/upload/w_auto,c_scale,q_auto,f_auto/v1768024930/choripapa_zy5hvo.jpg",
   },
   {
     nombre: "Papas a la francesa",
@@ -312,7 +312,7 @@ const menuItems = [
     descripcion: "Combinación de carnes a la parrilla, cubiertas con queso fundido y tocineta crocante, acompañadas de papas, arepa y ensalada.",
     precio: 45000,
     categoria: "opcional-carnes",
-    imagen: "productos_imagenes/comidas/platomixtoqyt.jpg",
+    imagen: "https://res.cloudinary.com/dvx8yz3sc/image/upload/w_auto,c_scale,q_auto,f_auto/v1768024934/platomixtoqyt_jmx8xx.jpg",
   },
   {
     nombre: "Sancocho trifasico",
