@@ -155,7 +155,7 @@ const menuItems = [
   },
   {
     nombre: "Bandeja paisa",
-    descripcion: "Plato típico colombiano con fríjoles, arroz, chicharrón, carne molida, huevo, plátano maduro, arepa y aguacate.",
+    descripcion: "Plato típico colombiano con fríjoles, arroz, chicharrón, huevo, plátano maduro, arepa y aguacate.",
     precio: 40000,
     categoria: "platos del dia",
     imagen: "https://res.cloudinary.com/dvx8yz3sc/image/upload/w_700,q_auto,f_auto/v1767901506/bandejapaisa_upqvsz.jpg",
@@ -197,7 +197,7 @@ const menuItems = [
   },
   {
     nombre: "Cazuela de frijol",
-    descripcion: "Cazuela tradicional de fríjoles con arroz, carne, chicharrón, arepa y acompañamientos de la casa.",
+    descripcion: "Cazuela tradicional de fríjoles con arroz, chicharrón, arepa y acompañamientos de la casa.",
     precio: 40000,
     categoria: "platos del dia",
     imagen: "https://res.cloudinary.com/dvx8yz3sc/image/upload/w_700,q_auto,f_auto/v1767901504/cazueladefrijoles_ujo5b4.jpg",
