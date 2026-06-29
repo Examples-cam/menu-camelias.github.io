@@ -91,6 +91,13 @@ const menuItems = [
     imagen: "https://res.cloudinary.com/dvx8yz3sc/image/upload/w_700,q_auto,f_auto/v1767901524/patacon_psmuad.jpg",
   },
   {
+    nombre: "Costichicharrón 360gr",
+    descripcion: "Costillas de cerdo doradas y jugosas, acompañadas de papas a la francesa, arepa y ensalada fresca.",
+    precio: 40000,
+    categoria: "platos para picar",
+    imagen: "https://res.cloudinary.com/dvx8yz3sc/image/upload/w_700,q_auto,f_auto/v1767901503/costillasbbq_gzwidj.jpg",
+  },
+  {
     nombre: "Seviche de chicharron",
     descripcion: "Crujiente chicharrón picado, marinado con limón, cebolla, tomate y toques frescos de la casa.",
     precio: 29000,
