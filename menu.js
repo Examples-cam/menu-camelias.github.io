@@ -451,20 +451,59 @@ function createCard(item) {
 
 function renderCategory(category) {
   const items = menuItems.filter(item => item.categoria === category);
+
   categoryTitle.textContent = categoryLabel(category).toUpperCase();
+
+  // Eliminar aviso anterior si existe
+  const previousNotice = document.querySelector(".special-menu-notice");
+  if (previousNotice) {
+    previousNotice.remove();
+  }
+
   menuContainer.innerHTML = "";
 
+  // Aviso exclusivo para Platos Especiales
+  if (category === "platos especiales") {
+    const notice = document.createElement("div");
+    notice.className = "special-menu-notice";
+
+    notice.innerHTML = `
+      <span class="notice-icon">✦</span>
+      <div>
+        <strong>MENÚ EXCLUSIVO DE FINES DE SEMANA</strong>
+        <p>
+          Nuestros platos especiales están disponibles
+          únicamente los sábados y domingos.
+        </p>
+      </div>
+    `;
+
+    menuContainer.before(notice);
+  }
+
   const visible = items.slice(0, 4);
-  visible.forEach(item => menuContainer.appendChild(createCard(item)));
+
+  visible.forEach(item => {
+    menuContainer.appendChild(createCard(item));
+  });
 
   viewAll.style.display = items.length > 4 ? "inline-block" : "none";
+
   viewAll.onclick = () => renderAll(category);
 
   requestAnimationFrame(() => {
     menuContainer.querySelectorAll(".menu-card").forEach((card, i) => {
       card.animate(
-        [{opacity: 0, transform: "translateY(12px)"}, {opacity: 1, transform: "translateY(0)"}],
-        {duration: 360, delay: i * 55, easing: "cubic-bezier(.2,.8,.2,1)", fill: "both"}
+        [
+          { opacity: 0, transform: "translateY(12px)" },
+          { opacity: 1, transform: "translateY(0)" }
+        ],
+        {
+          duration: 360,
+          delay: i * 55,
+          easing: "cubic-bezier(.2,.8,.2,1)",
+          fill: "both"
+        }
       );
     });
   });
