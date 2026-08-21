@@ -1,16 +1,7 @@
-/* =====================================================
-   ARCHIVO: menu.js
-   FUNCIÓN: Manejar los datos del menú y su renderizado
-   ===================================================== */
-
-/* -----------------------------------------------------
-   1. DATOS DEL MENÚ
-   -----------------------------------------------------
-   Cada objeto representa UN producto del restaurante.
-   Las categorías deben coincidir EXACTAMENTE con las
-   categorías técnicas definidas en el HTML.
------------------------------------------------------ */
-console.log("menu.js cargado correctamente");
+/* =========================================================
+   RESTAURANTE — nueva interfaz
+   Los datos originales del menú se conservan.
+   ========================================================= */
 
 const menuItems = [
   {
@@ -366,97 +357,189 @@ const menuItems = [
   
 ]
 
-/* ===============================
-   2. REFERENCIAS DOM
-================================ */
+const menuContainer = document.getElementById("menuContainer");
+const categoriesEl = document.getElementById("categories");
+const categoryTitle = document.getElementById("categoryTitle");
+const heroImage = document.getElementById("heroImage");
+const chefImage = document.getElementById("chefImage");
+const viewAll = document.getElementById("viewAll");
+const chefButton = document.getElementById("chefButton");
+const modal = document.getElementById("productModal");
+const modalImage = document.getElementById("modalImage");
+const modalTitle = document.getElementById("modalTitle");
+const modalDescription = document.getElementById("modalDescription");
+const modalPrice = document.getElementById("modalPrice");
+const menuToggle = document.getElementById("menuToggle");
+const mobileNav = document.getElementById("mobileNav");
+const backToTop = document.getElementById("backToTop");
 
-const menuContainer = document.getElementById("menu");
-const categoryButtons = document.querySelectorAll(".category-btn");
+const categoryMeta = {
+  "porciones": ["◌", "Porciones"],
+  "platos para picar": ["♨", "Para picar"],
+  "platos a la carta": ["♢", "A la carta"],
+  "platos del dia": ["◒", "Platos del día"],
+  "menu ejecutivo": ["▱", "Menú ejecutivo"],
+  "opcional-carnes": ["✦", "Opcional carnes"],
+  "platos especiales": ["✺", "Especiales"],
+  "picadas": ["⌁", "Picadas"]
+};
 
+const categoryOrder = [
+  "porciones", "platos para picar", "platos a la carta", "platos del dia",
+  "menu ejecutivo", "opcional-carnes", "platos especiales", "picadas"
+];
 
-/* ===============================
-   3. RENDER DEL MENÚ
-================================ */
+const money = value => `$${Number(value).toLocaleString("es-CO")}`;
 
-function renderMenu(items) {
-  menuContainer.innerHTML = "";
+function getCategories() {
+  const found = [...new Set(menuItems.map(item => item.categoria))];
+  return categoryOrder.filter(c => found.includes(c));
+}
 
-  if (!items || items.length === 0) {
-    menuContainer.innerHTML = "<p>No hay productos disponibles</p>";
-    return;
-  }
+function categoryLabel(category) {
+  return categoryMeta[category]?.[1] || category;
+}
 
-  items.forEach(item => {
-    const card = document.createElement("div");
-    card.className = "menu-card";
+function buildCategories() {
+  categoriesEl.innerHTML = getCategories().map((category, index) => {
+    const [icon, label] = categoryMeta[category] || ["✦", category];
+    return `
+      <button class="category-btn ${index === 0 ? "active" : ""}" 
+              data-category="${category}" role="tab" aria-selected="${index === 0}">
+        <span class="cat-icon" aria-hidden="true">${icon}</span>
+        <span class="cat-label">${label}</span>
+      </button>`;
+  }).join("");
 
-    // Imagen
-    if (item.imagen) {
-      const img = document.createElement("img");
-      img.src = item.imagen;
-      img.alt = item.nombre;
-
-      img.onerror = () => {
-        img.style.display = "none";
-      };
-
-      card.appendChild(img);
-    }
-
-    // Información
-    const info = document.createElement("div");
-    info.className = "menu-card-content";
-
-    info.innerHTML = `
-      <h3>${item.nombre}</h3>
-      ${item.descripcion ? `<p>${item.descripcion}</p>` : ""}
-      <span class="price">$${item.precio.toLocaleString("es-CO")}</span>
-    `;
-
-    card.appendChild(info);
-    menuContainer.appendChild(card);
+  categoriesEl.querySelectorAll(".category-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      categoriesEl.querySelectorAll(".category-btn").forEach(b => {
+        b.classList.remove("active");
+        b.setAttribute("aria-selected", "false");
+      });
+      btn.classList.add("active");
+      btn.setAttribute("aria-selected", "true");
+      renderCategory(btn.dataset.category);
+    });
   });
 }
 
+function createCard(item) {
+  const card = document.createElement("article");
+  card.className = "menu-card";
+  card.innerHTML = `
+    <div class="card-image">
+      <img src="${item.imagen || ""}" alt="${item.nombre}" loading="lazy">
+      <button class="card-plus" type="button" aria-label="Ver detalles de ${item.nombre}">+</button>
+    </div>
+    <div class="card-body">
+      <h3>${item.nombre}</h3>
+      ${item.descripcion ? `<p>${item.descripcion}</p>` : ""}
+      <div class="card-footer">
+        <span class="price">${money(item.precio)}</span>
+      </div>
+    </div>
+  `;
 
-/* ===============================
-   4. FILTRO POR CATEGORÍAS
-================================ */
-
-categoryButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    const categoria = btn.dataset.category;
-
-    // Botón activo
-    categoryButtons.forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-
-    // Filtrar productos
-    const filtrados = menuItems.filter(
-      item => item.categoria === categoria
-    );
-
-    renderMenu(filtrados);
+  card.querySelector(".card-plus").addEventListener("click", () => openModal(item));
+  card.querySelector(".card-image img").addEventListener("click", () => openModal(item));
+  card.querySelector(".card-image img").addEventListener("error", e => {
+    e.currentTarget.style.opacity = ".15";
   });
+  return card;
+}
+
+function renderCategory(category) {
+  const items = menuItems.filter(item => item.categoria === category);
+  categoryTitle.textContent = categoryLabel(category).toUpperCase();
+  menuContainer.innerHTML = "";
+
+  const visible = items.slice(0, 4);
+  visible.forEach(item => menuContainer.appendChild(createCard(item)));
+
+  viewAll.style.display = items.length > 4 ? "inline-block" : "none";
+  viewAll.onclick = () => renderAll(category);
+
+  requestAnimationFrame(() => {
+    menuContainer.querySelectorAll(".menu-card").forEach((card, i) => {
+      card.animate(
+        [{opacity: 0, transform: "translateY(12px)"}, {opacity: 1, transform: "translateY(0)"}],
+        {duration: 360, delay: i * 55, easing: "cubic-bezier(.2,.8,.2,1)", fill: "both"}
+      );
+    });
+  });
+}
+
+function renderAll(category) {
+  const items = menuItems.filter(item => item.categoria === category);
+  categoryTitle.textContent = categoryLabel(category).toUpperCase();
+  menuContainer.innerHTML = "";
+  items.forEach(item => menuContainer.appendChild(createCard(item)));
+  viewAll.style.display = "none";
+}
+
+function openModal(item) {
+  modalImage.src = item.imagen || "";
+  modalImage.alt = item.nombre;
+  modalTitle.textContent = item.nombre;
+  modalDescription.textContent = item.descripcion || "Preparación artesanal de la casa.";
+  modalPrice.textContent = money(item.precio);
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+document.querySelectorAll("[data-close-modal]").forEach(el => el.addEventListener("click", closeModal));
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeModal();
 });
 
+menuToggle.addEventListener("click", () => {
+  const open = menuToggle.classList.toggle("open");
+  mobileNav.classList.toggle("open", open);
+  menuToggle.setAttribute("aria-expanded", String(open));
+  mobileNav.setAttribute("aria-hidden", String(!open));
+});
+mobileNav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+  menuToggle.classList.remove("open");
+  mobileNav.classList.remove("open");
+  menuToggle.setAttribute("aria-expanded", "false");
+  mobileNav.setAttribute("aria-hidden", "true");
+}));
 
-/* ===============================
-   5. RENDER INICIAL (PORCIONES)
-================================ */
+const heroImageUrl = "https://res.cloudinary.com/dlcsihevy/image/upload/v1787284029/imagenprincipal_hctks5.png";
 
-const categoriaInicial = "porciones";
+// Imagen principal — "SABORES QUE INSPIRAN"
+heroImage.src = heroImageUrl;
 
-// Marcar botón activo inicial
-categoryButtons.forEach(btn => {
-  if (btn.dataset.category === categoriaInicial) {
-    btn.classList.add("active");
-  }
+// Misma imagen — sección "CHEF RECOMIENDA"
+chefImage.src = heroImageUrl;
+
+chefButton.addEventListener("click", () => {
+  const special = menuItems.find(item => item.categoria === "platos especiales");
+  if (special) openModal(special);
 });
 
-// Render inicial optimizado
-const productosIniciales = menuItems.filter(
-  item => item.categoria === categoriaInicial
-);
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("is-visible");
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: .12 });
+document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
 
-renderMenu(productosIniciales);
+window.addEventListener("scroll", () => {
+  backToTop.classList.toggle("visible", window.scrollY > 550);
+}, { passive: true });
+backToTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+buildCategories();
+renderCategory(getCategories()[0] || "");
