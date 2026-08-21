@@ -1,97 +1,142 @@
 <!DOCTYPE html>
-<!-- 
-  Declara el tipo de documento como HTML5.
-  Es obligatorio para que el navegador interprete correctamente el código.
--->
 <html lang="es">
-<!-- 
-  lang="es" indica que el contenido está en español.
--->
-
 <head>
-  <!-- Codificación de caracteres para permitir tildes, ñ, símbolos -->
   <meta charset="UTF-8">
-
-  <!-- Hace que el sitio sea responsive en celulares -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Título que aparece en la pestaña del navegador -->
-  <title>Restaurante Bar Mirador de las Camelias</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
-
-
-  <!-- Conexión con el archivo CSS -->
+  <meta name="theme-color" content="#0b0b0a">
+  <meta name="description" content="Menú digital del Restaurante Bar Mirador de las Camelias">
+  <title>Restaurante | Mirador de las Camelias</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <!-- ===================== -->
-  <!-- HEADER / IDENTIDAD -->
-  <!-- ===================== -->
-  <header class="header">
-    <!-- Nombre principal del restaurante -->
-    <h1>🍽️ Restaurante Bar Mirador de las Camelias</h1>
+  <div class="page-shell">
+    <header class="site-header" id="inicio">
+      <a class="brand" href="#inicio" aria-label="Mirador Restaurante">
+        <span class="brand-mark">M</span>
+        <span class="brand-copy">
+          <strong>MIRADOR DE LAS CAMELIAS</strong>
+          <small>RESTAURANTE - BAR</small>
+        </span>
+      </a>
 
-    <!-- Frase corta o concepto del negocio -->
-    <p>Cocina artesanal & bebidas especiales</p>
-  </header>
+      <nav class="desktop-nav" aria-label="Navegación principal">
+        <a href="#inicio">INICIO</a>
+        <a class="is-active" href="#menu">MENÚ</a>
+        <a href="#menu">BEBIDAS</a>
+        <a href="#footer">RESERVAS</a>
+        <a href="#chef">NOSOTROS</a>
+      </nav>
 
-  <!-- ===================== -->
-  <!-- CATEGORÍAS DEL MENÚ -->
-  <!-- ===================== -->
-  <nav class="categories">
-    <!-- 
-      Cada botón ejecuta una función de JavaScript.
-      El texto entre comillas es la categoría que se filtra.
-    -->
+      <div class="header-actions">
+        <a class="reserve-button" href="#footer">RESERVAR</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
 
-    <button class="category-btn" data-category="porciones">Porciones</button>
-    <button class="category-btn" data-category="platos para picar">Platos para picar</button>
-    <button class="category-btn" data-category="platos a la carta">Platos a la carta</button>
-    <button class="category-btn" data-category="platos del dia">Platos del dia</button>
-    <button class="category-btn" data-category="menu ejecutivo">Menú ejecutivo</button>
-    <button class="category-btn" data-category="opcional-carnes">Opcional - carnes</button>
-    <button class="category-btn" data-category="platos especiales">Platos especiales</button>
-    <button class="category-btn" data-category="picadas">Picadas</button>
+    <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+      <a href="#inicio">INICIO</a>
+      <a href="#menu">MENÚ</a>
+      <a href="#menu">BEBIDAS</a>
+      <a href="#footer">RESERVAS</a>
+      <a href="#chef">NOSOTROS</a>
+    </div>
 
-  </nav>
+    <main>
+      <section class="hero" aria-labelledby="heroTitle">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">NUESTRO MENÚ</p>
+          <h1 id="heroTitle">SABORES QUE<br><em>INSPIRAN</em></h1>
+          <div class="ornament" aria-hidden="true">⌁</div>
+          <p class="hero-text">
+            Cada plato está diseñado para convertirse en una experiencia única.
+            Ingredientes frescos, técnicas cuidadosas y pasión por lo que hacemos.
+          </p>
+          <a class="outline-button" href="#menu">EXPLORAR MENÚ <span>↗</span></a>
+        </div>
 
-  <!-- ===================== -->
-  <!-- CONTENEDOR DEL MENÚ -->
-  <!-- ===================== -->
-  <main id="menu" class="menu-container">
-    <!-- 
-      IMPORTANTE:
-      Este contenedor empieza vacío.
-      El contenido se genera dinámicamente desde JavaScript.
-    -->
-  </main>
+        <div class="hero-visual reveal">
+          <div class="hero-glow"></div>
+          <div class="hero-ring"></div>
+          <img id="heroImage" alt="Plato recomendado del restaurante">
+          <div class="hero-index" aria-hidden="true">
+            <span>01</span>
+            <i></i>
+            <span>05</span>
+          </div>
+        </div>
+      </section>
 
-  <!-- ===================== -->
-  <!-- FOOTER / INFORMACIÓN -->
-  <!-- ===================== -->
-  <footer class="footer">
-    <!-- Ubicación del restaurante -->
-    <p>📍 Pereira - Dosquebradas</p>
+      <section class="category-section" id="menu">
+        <div class="section-kicker">EXPLORA POR CATEGORÍAS</div>
+        <div class="categories" id="categories" role="tablist" aria-label="Categorías del menú"></div>
+      </section>
 
-    <!-- Enlace directo a WhatsApp -->
-    <a href="https://wa.me/573176050132" target="_blank">
-      📲 Contáctanos por WhatsApp
-    </a>
-    <!-- Enlace directo a Instagram -->
-    <a href="https://www.instagram.com/miradorlascamelias1?igsh=MXhweWhvYmt3cTV3Mg==" target="_blank">
-      📲 Contáctanos por Instagram
-    </a>
-  </footer>
+      <section class="products-section">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow">SELECCIÓN DEL RESTAURANTE</p>
+            <h2 id="categoryTitle">ENTRADAS</h2>
+          </div>
+          <button class="view-all" id="viewAll" type="button">VER TODAS <span>→</span></button>
+        </div>
 
-  <!-- ===================== -->
-  <!-- JAVASCRIPT -->
-  <!-- ===================== -->
-  <!-- 
-    Se carga al final para asegurar que todo el HTML
-    esté disponible antes de ejecutar el JS.
-  -->
+        <div class="menu-container" id="menuContainer"></div>
+      </section>
+
+      <section class="chef-section reveal" id="chef">
+        <div class="chef-copy">
+          <p class="eyebrow">CHEF RECOMIENDA</p>
+          <h2>EXPERIENCIAS<br><em>QUE DEJAN HUELLA</em></h2>
+          <p>
+            Platos únicos creados para compartir momentos memorables,
+            con el sabor y la identidad de nuestra cocina.
+          </p>
+          <button class="outline-button" id="chefButton" type="button">DESCUBRIR ESPECIALES <span>→</span></button>
+        </div>
+        <div class="chef-visual">
+          <img id="chefImage" alt="Especial recomendado por el chef">
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="footer">
+      <div>
+        <span class="brand-copy"><strong>MIRADOR</strong><small>RESTAURANTE</small></span>
+        <p>Pereira - Dosquebradas</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://wa.me/573176050132" target="_blank" rel="noopener">WHATSAPP ↗</a>
+        <a href="https://www.instagram.com/miradorlascamelias1?igsh=MXhweWhvYmt3cTV3Mg==" target="_blank" rel="noopener">INSTAGRAM ↗</a>
+      </div>
+    </footer>
+  </div>
+
+  <div class="modal" id="productModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <article class="product-detail" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" type="button" data-close-modal aria-label="Cerrar">×</button>
+      <div class="detail-image-wrap"><img id="modalImage" alt=""></div>
+      <div class="detail-content">
+        <p class="eyebrow">DETALLES</p>
+        <h2 id="modalTitle"></h2>
+        <p id="modalDescription"></p>
+        <div class="detail-price" id="modalPrice"></div>
+        <div class="detail-meta">
+          <span>✦ Producto de la casa</span>
+          <span>✦ Ingredientes frescos</span>
+          <span>✦ Preparación artesanal</span>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <button class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</button>
   <script src="menu.js"></script>
 </body>
 </html>
