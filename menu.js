@@ -552,7 +552,7 @@ mobileNav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
   mobileNav.setAttribute("aria-hidden", "true");
 }));
 
-const heroImageUrl = "https://res.cloudinary.com/dlcsihevy/image/upload/v1787284029/imagenprincipal_hctks5.png";
+const heroImageUrl = "https://res.cloudinary.com/dlcsihevy/image/upload/v1787601755/file_000000000d4c820e95e1202560d2d499_n2noow.png";
 
 // Imagen principal — "SABORES QUE INSPIRAN"
 heroImage.src = heroImageUrl;
