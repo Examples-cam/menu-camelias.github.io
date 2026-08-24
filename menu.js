@@ -86,7 +86,7 @@ const menuItems = [
     descripcion: "Costillas de cerdo doradas y jugosas, acompañadas de papas a la francesa, arepa y ensalada fresca.",
     precio: 40000,
     categoria: "platos para picar",
-    imagen: "https://res.cloudinary.com/dvx8yz3sc/image/upload/w_700,q_auto,f_auto/v1767901503/costillasbbq_gzwidj.jpg",
+    imagen: "https://res.cloudinary.com/dlcsihevy/image/upload/v1787601059/IMG-20260824-WA0002_kgv1pi.jpg",
   },
   {
     nombre: "Seviche de chicharron",
